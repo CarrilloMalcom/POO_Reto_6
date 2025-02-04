@@ -16,9 +16,15 @@ Crear una función que realice operaciones básicas (suma, resta, multiplicació
 ```python
 def main():
     print("Ingrese sus numeros y la operación que quiere aplicarles")
-    a=int(input("Ingrese su primer entero"))
-    b=int(input("Ingrese su segundo entero"))
-    op=input("Ingrese la operación que quiere aplicar (símbolo: +, -, /, *)")
+    flag:bool=True
+    while flag:
+        try:
+            a=int(input("Ingrese su primer entero: "))
+            b=int(input("Ingrese su segundo entero: "))
+            flag=False
+        except ValueError:
+            print("Alguno de los datos ingresados no es valido \nIntente de nuevo: ")
+    op=input("Ingrese la operación que quiere aplicar (símbolo: +, -, /, *): ")
     match op:
         case "+":
             res=a+b
@@ -27,22 +33,30 @@ def main():
         case "*":
             res=a*b
         case "/":
-            res=a/b
+            try:
+                res=a/b
+            except ZeroDivisionError:
+                print("No se puede dividir por 0")
         case _:
             print("No se ha ingresado una operación valida")
             main()
     return a, b, op, res
+
 if __name__=="__main__":
     a, b, op, res=main()
     print(f"El resultado de {a} {op} {b} es {res}")
-
 ```
 Para esta se toma una aproximación simple permitiendo la entrada de los numeros y la operación y realizando la operación a través de un match case de acuerdo al signo ingresado por el usuario. En caso de operar en una versión mas antigua de python que no cuente con el match case funcionaria igual pero con ifs y elifs
 ```python
 def main():
     print("Ingrese sus numeros y la operación que quiere aplicarles")
-    a=int(input("Ingrese su primer entero"))
-    b=int(input("Ingrese su segundo entero"))
+    while flag:
+            try:
+                a=int(input("Ingrese su primer entero: "))
+                b=int(input("Ingrese su segundo entero: "))
+                flag=False
+            except ValueError:
+                print("Alguno de los datos ingresados no es valido \nIntente de nuevo: ")
     op=input("Ingrese la operación que quiere aplicar (símbolo: +, -, /, *)")
     if op=="+":
         res=a+b
@@ -51,7 +65,10 @@ def main():
     elif op=="*":
         res=a*b
     elif op=="/":
-        res=a/b
+        try:
+            res=a/b
+        except ZeroDivisionError:
+            print("No se puede dividir por 0")
     else:
         print("No se ha ingresado una operación valida")
         main()
@@ -59,6 +76,7 @@ def main():
 if __name__=="__main__":
     a, b, op, res=main()
     print(f"El resultado de {a} {op} {b} es {res}")
+
 ```
 ## 2.
 Realice una función que permita validar si una palabra es un palíndromo. Condición: No se vale hacer slicing para invertir la palabra y verificar que sea igual a la original.
@@ -100,7 +118,7 @@ if __name__=="__main__":
     for i in lista:
         if primo(i):
             primos.append(i)
-    print(f"Los numeros primos de la lista de numeros dados son: \n{primos}")
+    print(f"Los numeros primos de la lista de numeros dados son: \n{primos}") 
 ```
 A partir de determinar si el modulo de entre 2 numeros es 0 se sabe si uno es divisor de otro. Para obtener los primos se descarta con este metodo los posibles divisores que se encuentran entre 2 y la mitad de cada numero, de esta manera se evalua si un numero es primo o no para separarlo en otra lista
 
